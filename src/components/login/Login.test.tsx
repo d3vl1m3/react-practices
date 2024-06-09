@@ -99,11 +99,7 @@ describe('Login', () => {
         const mockUserLoggedInCallback = jest.fn()
         const mockNavigateToMeterReadingsPage = jest.fn()
 
-        const mockLoginUser = jest.fn().mockResolvedValue({
-            status: 200,
-            data: {accountId: '123'},
-            message: ''
-        })
+        const mockLoginUser = jest.fn().mockResolvedValue( {accountId: '123'} )
 
         afterEach(() => {
             jest.clearAllMocks()
@@ -162,18 +158,16 @@ describe('Login', () => {
 
         jest.spyOn(console, 'log').mockImplementation(() => {})
 
-        const mockLoginUser = jest.fn().mockResolvedValue({
-            status: 401,
-            data: {},
-            message: 'Invalid username or password'
-        })
+        const mockLoginUser = jest.fn().mockResolvedValue(
+            new Error('Invalid username or password')
+        )
 
         afterEach(() => {
             jest.clearAllMocks()
         })
 
         afterAll(() => {
-            jest.restoreAllMocks()
+            jest.spyOn(console, 'log').mockRestore()
         })
 
         beforeEach(() => {
