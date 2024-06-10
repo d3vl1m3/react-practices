@@ -69,16 +69,24 @@ const Login = ({
                         <div className="flex items-center">
                             <label htmlFor="username" className="mb-2 mr-2 w-18">Username:</label>
                             <input {...register('username', {
-                                disabled: isSubmitting
-                            })} className="border border-gray-300 rounded-md px-2 py-1 w-64" />
+                                    disabled: isSubmitting
+                                })}
+                                id='username'
+                                type="text" 
+                                className="border border-gray-300 rounded-md px-2 py-1 w-64"
+                            />
                         </div>
                         <ErrorField error={errors?.username?.message}/>
 
                         <div className="mt-4 flex items-center">
                             <label htmlFor="password" className="mb-2 mr-2 w-18">Password:</label>
                             <input {...register('password', {
-                                disabled: isSubmitting
-                            })} className="border border-gray-300 rounded-md px-2 py-1 w-64" />
+                                    disabled: isSubmitting
+                                })}
+                                id='password'
+                                type="password" 
+                                className="border border-gray-300 rounded-md px-2 py-1 w-64" 
+                            />
                         </div>
                         <ErrorField error={errors?.password?.message}/>
                         
