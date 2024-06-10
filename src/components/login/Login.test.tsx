@@ -1,5 +1,5 @@
 import { Login } from './Login'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 describe('Login', () => {
     describe('when the user is not logged in', () => {
@@ -131,6 +131,11 @@ describe('Login', () => {
 
             fireEvent.click(loginButton)
 
+            // We need to wait for the form to be submitted before we can check the state
+            waitFor(() => {
+                expect(usernameField).not.toBeDisabled()
+            })
+
         })
 
         it('should call the loginUser function with the username and password', () => {
@@ -196,6 +201,10 @@ describe('Login', () => {
 
             fireEvent.click(loginButton)
 
+            // We need to wait for the form to be submitted before we can check the state
+            waitFor(() => {
+                expect(usernameField).not.toBeDisabled()
+            })
         })
 
         it('should call the loginUser function with the username and password', () => {
