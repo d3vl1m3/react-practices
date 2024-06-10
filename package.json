@@ -12,8 +12,10 @@
     "coverage": "npm test --coverage --watchAll --collectCoverageFrom='src/components/**/*.{ts,tsx}'"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.5",
     "swr": "^2.2.5",
     "zod": "^3.23.8"
   },
