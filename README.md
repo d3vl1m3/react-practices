@@ -10,6 +10,19 @@ To execute the unit tests, run:
 ```bash
 npm run test
 ```
+
+# Stratergies considered
+- Routing: Strategy for mapping URLs to specific handlers or views.
+- Form Creation: Strategy for creating user input forms.
+- Form Submissions: Strategy for handling user form submissions.
+- API Abstraction: Strategy for abstracting API calls into a separate layer or module.
+- Network Request Interception (during development): Strategy for mocking API calls, often used in testing or development.
+- Static Type-Checking: Strategy for catching type errors at compile time, often used in languages like TypeScript.
+- Run Time Validation: Strategy for validating data at runtime, often used when dealing with external data.
+- Error Handling: Strategy for handling and responding to errors that occur during the execution of your application.
+- Application Data Caching: Strategy for storing frequently accessed data to improve performance.
+- Testing: Strategy for testing your application to ensure it works as expected
+
 # Technology Used
 This project utilizes various technologies to enhance development and code reliability:
 - TypeScript: A statically typed superset of JavaScript that adds static types to the language, aiding in building robust components.
