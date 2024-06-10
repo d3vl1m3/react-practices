@@ -23,6 +23,10 @@ npm run test
 - Application Data Caching: Strategy for storing frequently accessed data to improve performance.
 - Testing: Strategy for testing your application to ensure it works as expected
 
+# Stratergies to consider
+- UI/UX feedback
+- Multi-page/Multi-modal Forms
+
 # Technology Used
 This project utilizes various technologies to enhance development and code reliability:
 - TypeScript: A statically typed superset of JavaScript that adds static types to the language, aiding in building robust components.
