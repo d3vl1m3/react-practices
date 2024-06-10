@@ -1,5 +1,5 @@
 import { Login } from './Login'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 
 describe('Login', () => {
     describe('when the user is not logged in', () => {
@@ -105,7 +105,7 @@ describe('Login', () => {
             jest.clearAllMocks()
         })
 
-        beforeEach(() => {
+        beforeEach(async () => {
             // Arrange
             const props = {
                 isLoggedIn: false,
@@ -129,12 +129,9 @@ describe('Login', () => {
 
             const loginButton = screen.getByRole('button', {name: 'Login'})
 
-            fireEvent.click(loginButton)
-
-            // We need to wait for the form to be submitted before we can check the state
-            waitFor(() => {
-                expect(usernameField).not.toBeDisabled()
-            })
+            await act(async () => {
+                fireEvent.click(loginButton)
+            });
 
         })
 
@@ -175,7 +172,7 @@ describe('Login', () => {
             jest.spyOn(console, 'log').mockRestore()
         })
 
-        beforeEach(() => {
+        beforeEach(async () => {
             // Arrange
             const props = {
                 isLoggedIn: false,
@@ -199,12 +196,10 @@ describe('Login', () => {
 
             const loginButton = screen.getByRole('button', {name: 'Login'})
 
-            fireEvent.click(loginButton)
+            await act(async () => {
+                fireEvent.click(loginButton)
+            });
 
-            // We need to wait for the form to be submitted before we can check the state
-            waitFor(() => {
-                expect(usernameField).not.toBeDisabled()
-            })
         })
 
         it('should call the loginUser function with the username and password', () => {
