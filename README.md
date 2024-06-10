@@ -26,6 +26,7 @@ npm run test
 # Stratergies to consider
 - UI/UX feedback
 - Multi-page/Multi-modal Forms
+- E2E testing
 
 # Technology Used
 This project utilizes various technologies to enhance development and code reliability:
