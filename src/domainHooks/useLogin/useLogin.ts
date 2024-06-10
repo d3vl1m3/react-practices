@@ -4,8 +4,21 @@ import { useUserStateContext } from '../../contexts/user/user.context';
 import { ApiErrorType } from '../../apiAgents/utils/types';
 import { LoginResponseData } from '../../apiAgents/login/types';
 
+export type LoginActionApply = (payload: {username: string, password: string}) => Promise<ApiErrorType | LoginResponseData>;
 
-export const useLogin = () => {
+type LoginAction = {
+    apply: LoginActionApply
+    isLoading: boolean;
+    error: Error | null;
+}
+
+type UseLogin = {
+    actions: {
+        loginUser: LoginAction
+    }
+}
+
+export const useLogin = (): UseLogin => {
     const {userLoggedIn, userLoggedOut}  = useUserStateContext()
 
     const [isLoginLoading, setIsLoginLoading] = useState(false)

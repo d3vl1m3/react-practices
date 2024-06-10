@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useUserStateContext } from '../../contexts/user/user.context'
 import { useLogin } from '../../domainHooks/useLogin/useLogin'
-import Login from './Login'
+import { Login } from './Login'
 import { routes } from '../../utils/routes'
 
 export const LoginContainer = () => {

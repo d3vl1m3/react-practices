@@ -1,4 +1,4 @@
-import Login from './Login'
+import { Login } from './Login'
 import { render, screen, fireEvent } from '@testing-library/react'
 
 describe('Login', () => {
