@@ -12,6 +12,8 @@ type LoginProps = {
     navigateToMeterReadingsPage: (accountId: string) => void;
 }
 
+type LoginFormValues = z.infer<typeof LoginFormSchema>
+
 const LoginFormSchema = z.object({
     username: z.string().min(1, 'Username is required'),
     password: z.string().min(1, 'Password is required')
@@ -27,11 +29,11 @@ export const Login = ({
     loginUser,
     navigateToMeterReadingsPage
 }: LoginProps) => {
-    const { register, handleSubmit, formState: { errors, isSubmitting} } = useForm<z.infer<typeof LoginFormSchema>>({
+    const { register, handleSubmit, formState: { errors, isSubmitting} } = useForm<LoginFormValues>({
         resolver: zodResolver(LoginFormSchema),
     });
     
-    const handleLogin: SubmitHandler<{ username: string; password: string; }> = async (data) => {
+    const handleLogin: SubmitHandler<LoginFormValues> = async (data) => {
         const response = await loginUser(data);
     
         if (response instanceof Error) {

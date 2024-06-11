@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { useState } from 'react';
 import { addMeterReading, getMeterReadings } from '../../apiAgents/meterReadings/meterReadings';
+import { CreateMeterReadingPayload } from '../../apiAgents/meterReadings/types';
 
 export const useMeterReadings = ({
     accountId
@@ -14,7 +15,7 @@ export const useMeterReadings = ({
     const [isCreating, setIsCreating] = useState(false)
     const [createError, setCreateError] = useState<Error | null>(null)
 
-    const create = async (payload: {readingValue: string, readingType: 'gas' | 'electric', readingDate: string}) => {
+    const create = async (payload: CreateMeterReadingPayload) => {
         setCreateError(null)
         setIsCreating(true)
 
