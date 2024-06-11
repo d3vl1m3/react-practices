@@ -3,12 +3,17 @@ import { routes } from '../../utils/routes'
 import { fetcher } from '../fetcher/fetcher'
 import { ApiErrorType } from '../utils/types'
 import { UnhandledApiError } from '../utils/unhandledApiError'
-import { CreateMeterReadingResponseData, decodeCreateMeterReadingResponseData, decodeGetMeterReadingsListResponseData } from './types'
+import { CreateMeterReadingPayload, CreateMeterReadingResponseData, GetMeterReadingsListResponseData, decodeCreateMeterReadingResponseData, decodeGetMeterReadingsListResponseData } from './types'
 
-export const getMeterReadings = async ({
+type GetMeterReadings = (params: { accountId: string }) => Promise<GetMeterReadingsListResponseData | ApiErrorType>
+
+type AddMeterReading = (
+    accountId: string,
+    payload: CreateMeterReadingPayload
+) => Promise<CreateMeterReadingResponseData | ApiErrorType>
+
+export const getMeterReadings: GetMeterReadings = async ({
     accountId
-}: {
-    accountId: string
 }) => {
     const response =  await fetcher(
         routes.api.meterReadings(accountId), 
@@ -39,7 +44,7 @@ export const getMeterReadings = async ({
     return decodedData.data
 }
 
-export const addMeterReading = async (accountId: string, payload: {readingValue: string, readingType: 'gas' | 'electric', readingDate: string}): Promise<CreateMeterReadingResponseData | ApiErrorType> => {
+export const addMeterReading: AddMeterReading = async (accountId, payload) => {
     const response = await fetcher(
         routes.api.meterReadings(accountId), 
         {

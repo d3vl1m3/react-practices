@@ -22,6 +22,7 @@ const createMeterReadingPayloadSchema = z.object({
 const getMeterReadingsListResponseDataSchema =  z.array(meterReadingSchema)
 
 // Types
+type MeterReading = z.infer<typeof meterReadingSchema>;
 type CreateMeterReadingResponseData = z.infer<typeof createMeterReadingResponseDataSchema>;
 type CreateMeterReadingPayload = z.infer<typeof createMeterReadingPayloadSchema>;
 type GetMeterReadingsListResponseData = z.infer<typeof getMeterReadingsListResponseDataSchema>;
@@ -43,5 +44,6 @@ export {
 export type {
     CreateMeterReadingResponseData, 
     CreateMeterReadingPayload, 
-    GetMeterReadingsListResponseData 
+    GetMeterReadingsListResponseData,
+    MeterReading
 }
