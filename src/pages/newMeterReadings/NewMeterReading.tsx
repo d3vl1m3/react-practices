@@ -17,9 +17,9 @@ interface NewMeterReadingProps {
 
 
 const NewMeterReadingFormSchema = z.object({
-    readingValue: z.string().regex(/^\d{5}$/),
+    readingValue: z.string().regex(/^\d{5}$/, 'Reading must be a 5 digit number'),
     meterReadingType: z.string(),
-    meterReadingDate: z.string(),
+    meterReadingDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in the format DD-MM-YYYY')
 });
 
 export const NewMeterReading = ({
@@ -31,13 +31,13 @@ export const NewMeterReading = ({
 }: NewMeterReadingProps) => {
 
     const { 
-        // register, 
+        register, 
         handleSubmit, 
-        // formState: { errors, isSubmitting} 
+        formState: { errors, isSubmitting} 
     } = useForm<z.infer<typeof NewMeterReadingFormSchema>>({
         resolver: zodResolver(NewMeterReadingFormSchema),
     });
-    
+
     
     const handleFormSubmit: SubmitHandler<z.infer<typeof NewMeterReadingFormSchema>> = async (data) => {
         const response = await createMeterReading(data);
@@ -64,33 +64,33 @@ export const NewMeterReading = ({
     return (
         <>
             <h1 className="text-xl font-semibold mb-4">Submit Meter Reading</h1>
-            <form className="max-w-sm" onSubmit={handleSubmit(handleFormSubmit)}>
+            <form className="max-w-sm" onSubmit={handleSubmit(handleFormSubmit)} action="#" name="Meter Reading Form">
                 <ResponseMessage />
                 <div className="mb-4">
-                    <label htmlFor="meterReading" className="block text-gray-700">
-                        Meter Reading:
+                    <label htmlFor="readingValue" className="block text-gray-700">
+                        Reading:
                     </label>
                     <input
+                        {...register('readingValue')}
                         type="text"
-                        id="meterReading"
-                        name="meterReading"
-                        pattern="[0-9]{5}"
-                        required
+                        id="readingValue"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     />
+                    {errors.readingValue && <p className="text-red-500">{errors.readingValue.message}</p>}
                     <p className="text-sm text-gray-500">Please enter a 5-digit number.</p>
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="readingType" className="block text-gray-700">
+                <div className="mb-4" role="radiogroup" aria-labelledby="meterReadingTypeGroup">
+                    <label htmlFor="meterReadingType" className="block text-gray-700" id="meterReadingTypeGroup">
                         Reading Type:
                     </label>
                     <div>
                         <input
+                            {...register('meterReadingType', {
+                                disabled: isLoading || isSubmitting
+                            })}
                             type="radio"
                             id="gas"
-                            name="readingType"
                             value="gas"
-                            required
                             className="mr-2"
                             defaultChecked
                         />
@@ -98,27 +98,31 @@ export const NewMeterReading = ({
                             Gas
                         </label>
                         <input
+                            {...register('meterReadingType', {
+                                disabled: isLoading || isSubmitting
+                            })}
                             type="radio"
                             id="electric"
-                            name="readingType"
                             value="electric"
-                            required
                             className="mr-2"
                         />
                         <label htmlFor="electric">Electric</label>
                     </div>
+                    <div>
+                        {errors.meterReadingType && <p className="text-red-500">{errors.meterReadingType.message}</p>}
+                    </div>
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="readingDate" className="block text-gray-700">
-                        Read Date:
-                    </label>
+                    <label htmlFor="meterReadingDate" className="block text-gray-700">Read Date:</label>
                     <input
+                        {
+                            ...register('meterReadingDate')
+                        }
                         type="date"
-                        id="readingDate"
-                        name="readingDate"
-                        required
+                        id="meterReadingDate"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     />
+                    {errors.meterReadingDate && <p className="text-red-500">{errors.meterReadingDate.message}</p>}
                 </div>
                 <button
                     type="submit"
