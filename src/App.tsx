@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import NotFound from './pages/notFound/NotFound';
 import Home from './pages/home/Home';
-import MeterReadings from './pages/meterReadings/MeterReadings';
+import MeterReadingsContainer from './pages/meterReadings/MeterReadingsContainer';
 import NewMeterReading from './pages/newMeterReadings/NewMeterReading';
 import Root from './root';
 import { UserStateProvider } from './contexts/user/user.provider';
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: routes.site.meterReadings(':accountId'),
-        element: <MeterReadings />
+        element: <MeterReadingsContainer />
       },
       {
         path: routes.site.newMeterReading(':accountId'),
