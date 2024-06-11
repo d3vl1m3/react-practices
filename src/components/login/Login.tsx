@@ -74,9 +74,10 @@ export const Login = ({
                             {...register('username', {
                                 disabled: isSubmitting
                             })}
+                            className="border border-gray-300 rounded-md px-2 py-1 w-64"
+                            defaultValue="test"
                             id="username"
                             type="text" 
-                            className="border border-gray-300 rounded-md px-2 py-1 w-64"
                         />
                     </div>
                     <ErrorField error={errors?.username?.message}/>
@@ -87,9 +88,10 @@ export const Login = ({
                             {...register('password', {
                                 disabled: isSubmitting
                             })}
+                            className="border border-gray-300 rounded-md px-2 py-1 w-64" 
+                            defaultValue="react practices"
                             id='password'
                             type="password" 
-                            className="border border-gray-300 rounded-md px-2 py-1 w-64" 
                         />
                     </div>
                     <ErrorField error={errors?.password?.message}/>

@@ -9,7 +9,7 @@ import {
 import NotFound from './pages/notFound/NotFound';
 import Home from './pages/home/Home';
 import MeterReadingsContainer from './pages/meterReadings/MeterReadingsContainer';
-import NewMeterReading from './pages/newMeterReadings/NewMeterReading';
+import NewMeterReadingContainer from './pages/newMeterReadings/NewMeterReadingContainer';
 import Root from './root';
 import { UserStateProvider } from './contexts/user/user.provider';
 import { routes } from './utils/routes';
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: routes.site.newMeterReading(':accountId'),
-        element: <NewMeterReading />
+        element: <NewMeterReadingContainer />
       },
       {
         path: "*",
