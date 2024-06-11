@@ -1,5 +1,6 @@
 import { http, HttpResponse, PathParams } from 'msw'
 import { routes } from '../utils/routes'
+import { CreateMeterReadingPayload } from '../apiAgents/meterReadings/types'
 
 export type MeterReading = {
   meterReadingId: number
@@ -54,7 +55,7 @@ const isCorrectUsernameAndPassword = (username: string, password: string): boole
 
 export const handlers = [
   // Login
-  http.post<PathParams, { username: string, password: 'gas' | 'electric' }>(routes.api.login, async ({ request }) => {
+  http.post<PathParams, { username: string, password: string }>(routes.api.login, async ({ request }) => {
     const { username, password } = await request.json()
 
     // "sanitize" username and password
@@ -108,13 +109,13 @@ export const handlers = [
   // POST Reading
   http.post<
     {accountId: string}, 
-    {payload: { readingValue: string, readingType: 'gas' | 'electric', readingDate: string } }
+    {payload: CreateMeterReadingPayload }
   >(routes.api.meterReadings(':accountId'), async ({ request, params }) => {
     const {accountId} = params
     const {payload: {
       readingValue,
-      readingType,
-      readingDate    
+      meterReadingDate,
+      meterReadingType    
     }} = await request.json()
 
     // if the meterReadings object does not have an array for the account, create one
@@ -123,7 +124,7 @@ export const handlers = [
     }
 
     // check the readingValue and readingType are present
-    if (!readingValue || !readingType || !readingDate) {
+    if (!readingValue || !meterReadingType || !meterReadingDate) {
       return HttpResponse.json({message: 'Missing reading value, reading type or reading date'}, {status: 400})
     }
 
@@ -133,12 +134,12 @@ export const handlers = [
     }
 
     // validate reading type
-    if (!validateReadingType(readingType)) {
+    if (!validateReadingType(meterReadingType)) {
       return HttpResponse.json({message: 'Invalid reading type'}, { status: 400 })
     }
 
     // validate reading date is a valid date string
-    if (validateReadingDate(readingDate)) {
+    if (validateReadingDate(meterReadingDate)) {
       return HttpResponse.json({message: 'Invalid reading date'}, { status: 400 })
     }
 
@@ -146,8 +147,8 @@ export const handlers = [
 
     const newReading = {
       meterReadingId,
-      meterReadingDate: new Date(readingDate).toISOString(),
-      meterReadingType: readingType,
+      meterReadingDate: new Date(meterReadingDate).toISOString(),
+      meterReadingType: meterReadingType,
       readingValue,
       createdDateTime: new Date().toISOString(),
     }
